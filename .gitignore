@@ -41,9 +41,6 @@ yarn-error.log*
 .DS_Store
 *.pem
 
-# pnpm lock file
-pnpm-lock.yaml
-
 .
 .vscode
 .idea
