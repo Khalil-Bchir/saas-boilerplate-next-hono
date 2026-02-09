@@ -12,11 +12,3 @@ export type AuthenticationServiceOptions = AbstractServiceOptions & {
   resetRedirectTo?: string;
   oauthRedirectTo?: string;
 };
-
-export type CarsServiceOptions = AbstractServiceOptions & {
-  storageClient: SupabaseClient<Database>;
-  storageBucket: string;
-  signedUrlTTL?: number;
-};
-
-export type CarRequestsServiceOptions = AbstractServiceOptions;

@@ -30,7 +30,7 @@ const envSchema = z
     ALLOWED_ORIGINS: z.string().optional(),
     RATE_LIMIT_WINDOW_MS: z.string().optional(),
     RATE_LIMIT_MAX_REQUESTS: z.string().optional(),
-
+    
     DATABASE_URL: z.string().url(),
     DIRECT_URL: z.string().url(),
 

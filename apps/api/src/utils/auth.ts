@@ -13,5 +13,3 @@ export function requireUser(c: AppContext): AuthenticatedUser {
 
   return user
 }
-
-
