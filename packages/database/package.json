@@ -22,13 +22,13 @@
     "db:drop": "dotenv -e ../../.env.development -- prisma migrate reset --force --skip-seed --skip-generate -- --environment development",
     "db:studio": "dotenv -e ../../.env.development -- prisma studio",
     "db:setup": "dotenv -e ../../.env.development -- pnpm run db:migrate:dev && pnpm run db:seed",
-    "db:generate": "cross-env NODE_ENV=development dotenv -e ../../.env.development -- prisma generate && prisma format",
+    "db:generate": "dotenv -e ../../.env.development -- prisma generate && prisma format",
     "db:reset:staging": "dotenv -e ../../.env.staging -- prisma migrate reset --force -- --environment staging",
     "db:reset:dev": "dotenv -e ../../.env.development -- prisma migrate reset --force -- --environment development",
     "db:resolve:applied:dev": "dotenv -e ../../.env.development -- prisma migrate resolve --applied 20251208145759_make_negotiation_relations_many_to_one",
     "db:status:dev": "dotenv -e ../../.env.development -- prisma migrate status",
-    "postinstall": "cross-env NODE_ENV=development pnpm run db:generate",
-    "build": "tsc",
+    "postinstall": "pnpm run db:generate",
+    "build": "tsc && tsc-alias",
     "dev": "tsc --watch"
   },
   "dependencies": {
@@ -37,16 +37,19 @@
     "@prisma/client": "^6.19.0",
     "@types/lodash": "^4.14.202",
     "bcryptjs": "2.4.3",
-    "cross-env": "^7.0.3",
     "dotenv": "^16.4.1",
     "dotenv-cli": "^7.3.0",
+    "tsc-alias": "^1.8.16",
     "lodash": "^4.17.21",
     "prisma": "^6.19.0",
     "@repo/typescript-config": "workspace:*",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.11.0",
     "tsx": "^4.7.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "ethers": "^6.16.0"
+  },
+  "devDependencies": {
   },
   "prisma": {
     "seed": "tsx src/seed/index.ts"
