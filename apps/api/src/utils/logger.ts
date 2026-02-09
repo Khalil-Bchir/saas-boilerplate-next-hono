@@ -1,9 +1,11 @@
 import { pino } from 'pino'
 import { env } from '../config/env.js'
 
-const isDevelopment = env.NODE_ENV === 'development'
-const isStaging = env.NODE_ENV === 'staging'
-const isProduction = env.NODE_ENV === 'production'
+// Use process.env.NODE_ENV directly for logger to ensure correct detection in production
+const nodeEnv = process.env.NODE_ENV || env.NODE_ENV
+const isDevelopment = nodeEnv === 'development'
+const isStaging = nodeEnv === 'staging'
+const isProduction = nodeEnv === 'production'
 
 const level = (() => {
   if (isProduction) return 'info'
@@ -11,19 +13,16 @@ const level = (() => {
   return 'debug'
 })()
 
-const transport = (() => {
-  if (isDevelopment) {
-    return {
-      target: 'pino-pretty',
-      options: {
-        colorize: true,
-        translateTime: 'HH:MM:ss Z',
-        ignore: 'pid,hostname',
-      },
-    }
-  }
-  return undefined
-})()
+// Use pino-pretty in all environments for readable logs
+// Disable colorize in production/staging since Vercel logs don't support colors
+const transport = {
+  target: 'pino-pretty',
+  options: {
+    colorize: isDevelopment,
+    translateTime: 'HH:MM:ss Z',
+    ignore: 'pid,hostname',
+  },
+}
 
 export const logger = pino({
   level,
