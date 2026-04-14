@@ -12,7 +12,6 @@ import type { UserRole } from "@/lib/db-types"
 import { ApiError } from "@/features/auth/services/auth-service"
 import { strings } from "@/lib/strings"
 import { useAuth } from "@/features/auth/hooks/use-auth"
-import { getDefaultSignupRole } from "@/config/env"
 import {
   validateEmail,
   validatePassword,
@@ -27,6 +26,11 @@ import {
 } from "@/features/auth/utils/auth-validation"
 import { ChevronRight, ChevronLeft, Loader2, LayoutGrid } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
+
+const DEFAULT_SIGNUP_ROLE: UserRole = (() => {
+  const v = (process.env.NEXT_PUBLIC_DEFAULT_SIGNUP_ROLE ?? "USER").toUpperCase()
+  return v === "USER" || v === "ADMIN" || v === "DEMO" ? v : "USER"
+})()
 
 interface FieldErrors {
   email: string | null
@@ -54,7 +58,7 @@ function SignUpForm() {
   const [state, setState] = useState("")
   const [postalCode, setPostalCode] = useState("")
   const [country, setCountry] = useState("")
-  const [role, setRole] = useState<UserRole>(() => getDefaultSignupRole())
+  const [role, setRole] = useState<UserRole>(() => DEFAULT_SIGNUP_ROLE)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [touched, setTouched] = useState({
