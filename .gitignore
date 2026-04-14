@@ -44,7 +44,14 @@ yarn-error.log*
 .
 .vscode
 .idea
+# Cursor rules (keep tracked), but ignore other Cursor state
 .cursor
+!.cursor/
+!.cursor/rules/
+!.cursor/rules/**
+!**/.cursor/
+!**/.cursor/rules/
+!**/.cursor/rules/**
 .cursorrules
 .cursorrules.md
 .cursorrules.txt

@@ -1,5 +1,5 @@
 {
-  "name": "aqeel-mvp",
+  "name": "saas-monorepo",
   "private": true,
   "scripts": {
     "build": "turbo run build",

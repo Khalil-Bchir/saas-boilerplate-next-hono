@@ -80,7 +80,7 @@ handler.openapi(registerUserSchema, async (c) => {
     return c.json({ data: result }, 201);
   } catch (error) {
     logger.error({ error, scope: "auth.register" }, "Failed to register user");
-    const normalized = normalizeError(error, 400);
+    const normalized = normalizeError(error, 500);
     const isConflict = /already/i.test(normalized.message);
     const status: 400 | 409 | 500 = isConflict
       ? 409

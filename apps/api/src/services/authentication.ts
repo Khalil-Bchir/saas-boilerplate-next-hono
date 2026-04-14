@@ -93,7 +93,19 @@ export class AuthenticationService {
     });
 
     if (error) {
-      throw new Error(error.message);
+      const err = new Error(error.message);
+      const statusFromError = (error as unknown as { status?: number }).status;
+      const code = (error as unknown as { code?: string }).code;
+      const status = statusFromError ?? (code === 'unexpected_failure' ? 500 : 400);
+
+      // Supabase can fail signup due to email provider issues; that's not a client error.
+      if (/confirmation email/i.test(error.message) || /sending confirmation email/i.test(error.message)) {
+        (err as { status?: number }).status = 502;
+      } else {
+        (err as { status?: number }).status = status;
+      }
+
+      throw err;
     }
 
     const supabaseUser = data.user;
@@ -218,15 +230,24 @@ export class AuthenticationService {
     user: SupabaseUser,
     overrides?: UserProfileInput & { role?: DbUserRole }
   ) {
-    const role: DbUserRole =
-      overrides?.role ??
-      (user.user_metadata?.role as DbUserRole | undefined) ??
-      'USER';
     const email = user.email;
 
     if (!email) {
       throw new Error('Supabase user missing email.');
     }
+
+    // IMPORTANT: DB role is the source of truth.
+    // Supabase `user_metadata.role` can be missing/stale at login time, and must not downgrade users.
+    const existingUser = await this.prisma.user.findUnique({
+      where: { id: user.id },
+      select: { role: true },
+    });
+
+    const role: DbUserRole =
+      overrides?.role ??
+      (existingUser?.role as DbUserRole | undefined) ??
+      (user.user_metadata?.role as DbUserRole | undefined) ??
+      'USER';
 
     const profile = this.pickProfileFields({
       ...(user.user_metadata as Record<string, unknown>),
