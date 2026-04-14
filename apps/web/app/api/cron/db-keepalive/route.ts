@@ -4,6 +4,12 @@ function getExpectedSecret() {
   return process.env.CRON_SECRET?.trim();
 }
 
+function getBearerToken(request: Request) {
+  const auth = request.headers.get("authorization") ?? "";
+  const match = auth.match(/^Bearer\s+(.+)$/i);
+  return match?.[1]?.trim() ?? "";
+}
+
 function getApiBaseUrl() {
   return (
     process.env.API_URL?.trim() ||
@@ -14,8 +20,7 @@ function getApiBaseUrl() {
 
 export async function GET(request: Request) {
   const expectedSecret = getExpectedSecret();
-  const { searchParams } = new URL(request.url);
-  const providedSecret = searchParams.get("secret") ?? "";
+  const providedSecret = getBearerToken(request);
 
   if (expectedSecret && providedSecret !== expectedSecret) {
     return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });

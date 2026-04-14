@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron/db-keepalive?secret=@CRON_SECRET",
+      "path": "/api/cron/db-keepalive",
       "schedule": "0 0 * * 0"
     }
   ]
