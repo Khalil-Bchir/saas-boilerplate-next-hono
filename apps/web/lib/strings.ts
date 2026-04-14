@@ -5,11 +5,16 @@ export const strings = {
   // App & nav
   app_name: 'SaaS Boilerplate',
   nav_home: 'Home',
+  nav_docs: 'Docs',
+  nav_github: 'GitHub',
   nav_dashboard: 'Dashboard',
   nav_account_settings: 'Account Settings',
   nav_login: 'Login',
   nav_get_started: 'Get Started',
   footer_privacy_policy: 'Privacy Policy',
+  footer_terms: 'Terms',
+  footer_docs: 'Documentation',
+  footer_github_repo: 'GitHub repository',
 
   // Landing
   landing_badge: 'SaaS Boilerplate',
@@ -17,6 +22,13 @@ export const strings = {
   landing_title_highlight: 'Starter',
   landing_description:
     'A reusable monorepo with authentication, authorization, and authenticated user management. Built for production-ready SaaS apps.',
+  landing_quickstart_title: 'Quick start',
+  landing_quickstart_desc:
+    'Clone the repo, configure Supabase + env, run migrations, and ship your SaaS in minutes.',
+  landing_architecture_title: 'Monorepo architecture',
+  landing_architecture_desc:
+    'Turborepo workspace with a Next.js web app, a Hono API, and shared database + types packages.',
+  landing_repo_cta: 'View on GitHub',
   landing_feature_auth_title: 'Authentication',
   landing_feature_auth_desc:
     'Email/password sign-up and login, session refresh, forgot password, and optional Google OAuth.',

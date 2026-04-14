@@ -2,6 +2,32 @@
 
 A production-ready, full-stack SaaS boilerplate built with Next.js, Hono, Supabase, and Prisma. This monorepo provides a complete foundation for building modern SaaS applications with authentication, authorization, database management, and more.
 
+## 🚀 Use cases
+
+This starter is built for teams/solo builders who want to ship quickly without reinventing auth, API contracts, and the core app skeleton.
+
+- **MVPs and startup prototypes**: validate an idea fast with real auth + a real database.
+- **Internal tools and admin dashboards**: ship secure CRUD workflows with role-based access.
+- **B2B SaaS products**: multi-page web app + a typed API layer you can grow over time.
+- **Paid templates / client projects**: reuse a consistent architecture across projects.
+- **Hackathons and weekend builds**: start from a production-leaning baseline instead of a blank repo.
+
+## 💡 Advantages (why a monorepo)
+
+- **Start building features immediately**: auth flows, session handling, API scaffolding, and UI patterns are already wired.
+- **Shared types & contracts**: keep the web + API in sync (fewer runtime surprises, safer refactors).
+- **One command workflow**: pnpm + Turborepo makes dev/build/lint/typecheck consistent across the repo.
+- **Separation of concerns**: UI in `apps/web`, API in `apps/api`, DB schema/tools in `packages/database`.
+- **Production-minded defaults**: validation, middleware stack, and OpenAPI docs reduce “later we’ll fix it” work.
+
+## 💸 Low-cost starter deployment (common path)
+
+You can launch an MVP with minimal spend:
+
+- **Web**: deploy `apps/web` on **Vercel** (often works on the free tier for early projects).
+- **Database + Auth**: use **Supabase** (free tier is a great starting point for early-stage products).
+- **API**: deploy `apps/api` on **Vercel** too (or any Node host) and point `NEXT_PUBLIC_API_URL` at it.
+
 ## 🏗️ Architecture
 
 This is a **Turborepo monorepo** containing:

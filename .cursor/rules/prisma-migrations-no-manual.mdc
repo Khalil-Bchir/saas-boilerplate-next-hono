@@ -1,0 +1,19 @@
+---
+description: Never hand-create/edit Prisma migration files; use db:migrate scripts
+alwaysApply: true
+---
+
+# Prisma migrations: no manual files
+
+- **Never create, rename, delete, or edit** anything under `packages/database/prisma/migrations/**` (including any `migration.sql`).
+- **Never add or change Prisma migrations via file edits**. Migrations must be generated automatically by Prisma.
+- **Do all schema changes** by editing only `packages/database/prisma/schema.prisma`, then generate migrations via:
+
+```bash
+pnpm -F @repo/database db:migrate:dev
+pnpm -F @repo/database db:migrate:staging
+pnpm -F @repo/database db:migrate:prod
+```
+
+- **If a migration needs to change**, update `schema.prisma` and re-run the appropriate `db:migrate:*` command (or create a new migration), rather than editing migration files.
+- **Allowed**: read migration files for review/debugging, but do not modify them unless the user explicitly asks for a one-off manual edit.

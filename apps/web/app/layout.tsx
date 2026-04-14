@@ -38,29 +38,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: [
-      {
-        url: '/logo blue.png',
-        type: 'image/png',
-      },
-      {
-        url: '/logo blue.png',
-        media: '(prefers-color-scheme: light)',
-        type: 'image/png',
-      },
-      {
-        url: '/logo white.png',
-        media: '(prefers-color-scheme: dark)',
-        type: 'image/png',
-      },
-    ],
-    apple: [
-      {
-        url: '/logo blue.png',
-        type: 'image/png',
-      },
-    ],
-    shortcut: '/logo blue.png',
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    shortcut: '/icon.svg',
   },
 }
 
