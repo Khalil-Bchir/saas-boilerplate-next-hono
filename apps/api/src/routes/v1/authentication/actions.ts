@@ -26,6 +26,8 @@ const emailRedirectTo = env.SUPABASE_EMAIL_REDIRECT_URL
 const resetRedirectTo = env.SUPABASE_RESET_REDIRECT_URL
 const oauthRedirectTo = env.SUPABASE_OAUTH_REDIRECT_URL
 
+console.log(emailRedirectTo, resetRedirectTo, oauthRedirectTo);
+
 const getService = (c: AppContext) => {
   const supabase = c.get("supabase");
   const prisma = c.get("prisma");
