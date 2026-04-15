@@ -5,11 +5,27 @@ export const strings = {
   // App & nav
   app_name: 'SaaS Boilerplate',
   nav_home: 'Home',
+  nav_intro: 'Intro',
+  nav_features: 'Features',
+  nav_use_cases: 'Use cases',
+  nav_contact: 'Contact',
   nav_dashboard: 'Dashboard',
   nav_account_settings: 'Account Settings',
   nav_login: 'Login',
   nav_get_started: 'Get Started',
+  nav_docs: 'Docs',
   footer_privacy_policy: 'Privacy Policy',
+  footer_terms: 'Terms of Service',
+  footer_explore_title: 'Explore',
+  footer_legal_title: 'Legal & docs',
+  footer_resources_title: 'Build',
+  footer_resources_blurb:
+    'Configure environment variables, run database migrations from the workspace scripts, then start the web and API dev servers.',
+  footer_tagline:
+    'Next.js and Hono monorepo with typed APIs, Prisma, and Supabase-ready auth—swap in your product and ship.',
+  footer_github: 'Source on GitHub',
+  footer_rights_reserved: 'All rights reserved.',
+  footer_reviews: 'Reviews',
 
   // Landing
   landing_badge: 'SaaS Boilerplate',
@@ -26,6 +42,16 @@ export const strings = {
   landing_feature_user_title: 'User Management',
   landing_feature_user_desc:
     'Profile and account settings, password change, and account deletion.',
+  landing_architecture_title: 'Architecture & features',
+  landing_architecture_desc:
+    'Security, typed API contracts, and a monorepo workflow you can extend without fighting the template.',
+  landing_quickstart_title: 'Quick start',
+  landing_quickstart_desc:
+    'Install dependencies, configure environment variables, run migrations, and start the web and API dev servers.',
+  landing_repo_cta: 'Open repository',
+  landing_repo_title: 'Get the code on GitHub',
+  landing_repo_description:
+    'Full source, issues, and discussions—fork the monorepo, run it locally, and adapt auth, API routes, and Prisma models to your product.',
   landing_cta_badge: 'Get started',
   landing_cta_title: 'Ready to build your app?',
   landing_cta_description:
@@ -38,6 +64,8 @@ export const strings = {
   logout: 'Logout',
   loading: 'Loading...',
   theme: 'Theme',
+  theme_switch_to_light: 'Switch to light mode',
+  theme_switch_to_dark: 'Switch to dark mode',
 
   // Theme
   lightMode: 'Light Mode',

@@ -31,3 +31,17 @@ enum UserRole {
   ADMIN
   DEMO
 }
+
+model Review {
+  id        String   @id @default(uuid())
+  name      String
+  company   String?
+  rating    Int
+  title     String?
+  message   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([createdAt])
+  @@map("reviews")
+}

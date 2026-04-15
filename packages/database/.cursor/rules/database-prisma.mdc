@@ -1,5 +1,5 @@
 ---
-description: packages/database (Prisma + Supabase). Prefer Prisma client + migrations; never edit generated artifacts manually.
+description: packages/database (Prisma + Supabase). Edit `schema.prisma` only; never hand-edit migration files—use `package.json` db scripts.
 alwaysApply: true
 ---
 
@@ -11,11 +11,16 @@ alwaysApply: true
 
 ## Prisma rules
 
-- Treat Prisma schema + migrations as source of truth.
-- Never hand-edit generated Prisma client output.
+- Treat `prisma/schema.prisma` as the human-edited source of truth for the data model.
+- Never hand-edit generated Prisma client output (`node_modules/.prisma`, generated imports).
 - Prefer safe migrations:
   - Additive changes first when possible.
   - Be careful with destructive schema changes; include migration rationale in PR/commit message.
+
+## Migrations (workflow)
+
+- **Do not** create, edit, rename, or delete files under `prisma/migrations/` by hand (including `migration.sql` and migration folders). Prisma owns that tree.
+- **Do** change the schema in `prisma/schema.prisma`, then create/update migrations using the scripts in `packages/database/package.json` (for example `db:migrate:dev` locally; `db:migrate:staging` / `db:migrate:prod` apply deployed migrations). Let Prisma generate migration artifacts.
 
 ## Environment & scripts
 

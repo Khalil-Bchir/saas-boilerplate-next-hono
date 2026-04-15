@@ -585,7 +585,9 @@ function SignUpForm() {
                     variant="outline"
                     className="w-full bg-muted/50"
                     size="lg"
-                    disabled={isGoogleLoading || isLoading}
+                    // disabled={isGoogleLoading || isLoading}
+                    disabled={true}
+                    style={{ cursor: 'not-allowed' }}
                     onClick={async () => {
                       setIsGoogleLoading(true)
                       try {

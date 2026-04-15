@@ -16,15 +16,24 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     const root = document.documentElement
 
-    if (theme === 'system') {
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      root.classList.toggle('dark', isDark)
-    } else {
-      root.classList.toggle('dark', theme === 'dark')
+    const apply = () => {
+      if (theme === 'system') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        root.classList.toggle('dark', isDark)
+      } else {
+        root.classList.toggle('dark', theme === 'dark')
+      }
+      root.setAttribute('dir', 'ltr')
+      root.setAttribute('lang', 'en')
     }
 
-    root.setAttribute('dir', 'ltr')
-    root.setAttribute('lang', 'en')
+    apply()
+
+    if (theme !== 'system') return
+
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
   }, [theme, mounted])
 
   if (!mounted) {

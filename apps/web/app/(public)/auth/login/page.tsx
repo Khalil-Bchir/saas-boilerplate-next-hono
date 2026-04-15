@@ -189,9 +189,11 @@ export default function LoginPage() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full bg-muted/50"
+                className="w-full bg-muted/50 cursor-not-allowed"
                 size="lg"
-                disabled={isGoogleLoading || isLoading}
+                // disabled={isGoogleLoading || isLoading}
+                disabled={true}
+                style={{ cursor: 'not-allowed' }}
                 onClick={async () => {
                   setIsGoogleLoading(true)
                   try {

@@ -12,6 +12,7 @@
  * | POST /api/v1/authentication/reset-password | Yes   | Needs valid token        |
  * | POST /api/v1/authentication/* (rest) | No            | login, register, refresh, etc. |
  * | GET /api/v1/health, /api/v2/health  | No            | Health checks            |
+ * | GET/POST /api/v1/reviews            | No            | Public landing reviews   |
  *
  * ## Token resolution (priority)
  *

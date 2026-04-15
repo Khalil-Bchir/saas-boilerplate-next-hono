@@ -15,7 +15,6 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { usePreferencesStore } from '@/store/preferences-store'
 import { strings } from '@/lib/strings'
 import { useAuth } from '@/features/auth/hooks/use-auth'
 import { useRouter, usePathname } from 'next/navigation'
@@ -23,20 +22,8 @@ import { useEffect, useState, useMemo, useCallback } from 'react'
 import { navItems } from '@/config/nav-config'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-  DropdownMenuSub,
-  DropdownMenuSubTrigger,
-  DropdownMenuPortal,
-  DropdownMenuSubContent,
-  DropdownMenuGroup,
-} from '@/components/ui/dropdown-menu'
-import { Settings, Sun, Moon, Monitor } from 'lucide-react'
+import { Settings } from 'lucide-react'
+import { ThemeToggleButton } from '@/components/common/theme-toggle-button'
 
 /**
  * Dashboard Layout
@@ -53,18 +40,10 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode
 }) {
-    const theme = usePreferencesStore((state) => state.theme)
-    const setTheme = usePreferencesStore((state) => state.setTheme)
     const { isAuthenticated, hasHydrated } = useAuth()
     const router = useRouter()
     const pathname = usePathname()
     const [isMounted, setIsMounted] = useState(false)
-
-    const getThemeIcon = () => {
-        if (theme === 'light') return <Sun className="h-4 w-4" />
-        if (theme === 'dark') return <Moon className="h-4 w-4" />
-        return <Monitor className="h-4 w-4" />
-    }
 
     const getNavTitle = useCallback((title: string): string => {
         const translations: Record<string, string> = {
@@ -235,12 +214,6 @@ export default function DashboardLayout({
         )
     }
 
-    const isDarkMode = theme === 'dark'
-
-    const handleThemeToggle = (checked: boolean) => {
-        setTheme(checked ? 'dark' : 'light')
-    }
-
     return (
         <div className="min-h-svh">
             <SidebarProvider>
@@ -275,50 +248,12 @@ export default function DashboardLayout({
                             </Breadcrumb>
                         </div>
                         <div className="ml-auto flex items-center gap-2">
-                          <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" aria-label="Settings">
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel>Settings</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-
-                {/* Theme Submenu */}
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger>
-                    {getThemeIcon()}
-                    <span className="ml-2">Theme</span>
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent>
-                      <DropdownMenuItem
-                        onClick={() => setTheme("light")}
-                        className={theme === "light" ? "bg-accent" : ""}
-                      >
-                        <Sun className="mr-2 h-4 w-4" />
-                        {strings.lightMode}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => setTheme("dark")}
-                        className={theme === "dark" ? "bg-accent" : ""}
-                      >
-                        <Moon className="mr-2 h-4 w-4" />
-                        {strings.darkMode}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        onClick={() => setTheme("system")}
-                        className={theme === "system" ? "bg-accent" : ""}
-                      >
-                        <Monitor className="mr-2 h-4 w-4" />
-                        {strings.systemMode}
-                      </DropdownMenuItem>
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                            <ThemeToggleButton />
+                            <Button variant="outline" size="icon" asChild aria-label={strings.nav_account_settings}>
+                                <Link href="/settings/account">
+                                    <Settings className="h-4 w-4" />
+                                </Link>
+                            </Button>
                         </div>
                     </header>
                     <main className="flex flex-1 flex-col overflow-hidden">
