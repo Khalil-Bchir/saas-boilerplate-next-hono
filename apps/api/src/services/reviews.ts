@@ -1,13 +1,6 @@
 import type { PrismaClient } from "@repo/database";
+import type { CreateReviewBody } from "../schema/v1/reviews.schema.js";
 import type { AbstractServiceOptions } from "../types/services.js";
-
-export type CreateReviewInput = {
-  name: string;
-  company?: string;
-  rating: number;
-  title?: string;
-  message?: string;
-};
 
 function toApiReview(row: {
   id: string;
@@ -69,7 +62,7 @@ export class ReviewsService {
     };
   }
 
-  async createReview(input: CreateReviewInput) {
+  async createReview(input: CreateReviewBody) {
     const row = await this.prisma.review.create({
       data: {
         name: input.name.trim(),

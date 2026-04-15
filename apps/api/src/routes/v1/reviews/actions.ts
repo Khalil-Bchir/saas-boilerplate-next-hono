@@ -1,7 +1,11 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import type { AutoLoadRoute } from "hono-autoload/types";
 import type { Env } from "../../../types/index.js";
-import { createReviewSchema, listReviewsSchema } from "../../../schema/v1/reviews.schema.js";
+import {
+  createReviewSchema,
+  listReviewsSchema,
+  type CreateReviewBody,
+} from "../../../schema/v1/reviews.schema.js";
 import { ReviewsService } from "../../../services/reviews.js";
 import { logger } from "../../../utils/logger.js";
 
@@ -31,7 +35,7 @@ handler.openapi(listReviewsSchema, async (c) => {
 
 handler.openapi(createReviewSchema, async (c) => {
   const prisma = c.get("prisma");
-  const body = c.req.valid("json");
+  const body = c.req.valid("json") as CreateReviewBody;
   const service = new ReviewsService({ prisma });
 
   try {

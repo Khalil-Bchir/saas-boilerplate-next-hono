@@ -55,6 +55,17 @@ export const listReviewsSchema = createRoute({
   },
 });
 
+/** POST /api/v1/reviews JSON body (same shape passed to ReviewsService after route validation). */
+export const createReviewBodySchema = z.object({
+  name: z.string().min(2).max(120),
+  company: z.string().min(1).max(120).optional(),
+  rating: z.number().int().min(1).max(5),
+  title: z.string().min(1).max(120).optional(),
+  message: z.string().min(1).max(2000).optional(),
+});
+
+export type CreateReviewBody = z.infer<typeof createReviewBodySchema>;
+
 export const createReviewSchema = createRoute({
   method: "post",
   path: "/",
@@ -65,13 +76,7 @@ export const createReviewSchema = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.object({
-            name: z.string().min(2).max(120),
-            company: z.string().min(1).max(120).optional(),
-            rating: z.number().int().min(1).max(5),
-            title: z.string().min(1).max(120).optional(),
-            message: z.string().min(1).max(2000).optional(),
-          }),
+          schema: createReviewBodySchema,
         },
       },
     },

@@ -7,6 +7,7 @@ import { getSupabaseClient } from './lib/supabase.js'
 import { getPrismaClient } from './lib/prisma.js'
 import type { Env } from './types/index.js'
 import { registerGlobalMiddlewares, registerAutoRoutes } from './middleware/autoloader.js'
+import { FAVICON_HEADERS, FAVICON_SVG } from './constants/favicon-svg.js'
 
 const supabase = getSupabaseClient()
 const prisma = getPrismaClient()
@@ -22,6 +23,14 @@ const servicesMiddleware: MiddlewareHandler<Env> = async (c, next) => {
 }
 
 app.use('*', servicesMiddleware)
+
+app.get('/favicon.svg', (c) =>
+  new Response(FAVICON_SVG, {
+    status: 200,
+    headers: FAVICON_HEADERS,
+  })
+)
+app.get('/favicon.ico', (c) => c.redirect('/favicon.svg', 302))
 
 await registerGlobalMiddlewares(app)
 await registerAutoRoutes(app)
