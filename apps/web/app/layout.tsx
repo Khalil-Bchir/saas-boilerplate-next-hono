@@ -1,10 +1,5 @@
 import type { Metadata } from 'next'
-import {
-  Geist,
-  Geist_Mono,
-  Source_Serif_4,
-} from 'next/font/google'
-
+import { Geist, Noto_Serif, Fira_Code } from "next/font/google";
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from "@/components/common/theme-provider"
@@ -21,21 +16,20 @@ function metadataBaseUrl(): URL {
   return new URL('http://localhost:3001')
 }
 
-const geist = Geist({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-geist',
-})
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-geist-mono',
-})
-const sourceSerif = Source_Serif_4({
-  subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-source-serif',
-})
+const fontSans = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontSerif = Noto_Serif({
+  subsets: ["latin"],
+  variable: "--font-serif",
+});
+
+const fontMono = Fira_Code({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 const siteDescription = strings.landing_description
 
@@ -82,7 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${geist.variable} ${geistMono.variable} ${sourceSerif.variable} font-sans antialiased`}
+        className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} font-sans antialiased`}
       >
         <ThemeProvider>
           {children}

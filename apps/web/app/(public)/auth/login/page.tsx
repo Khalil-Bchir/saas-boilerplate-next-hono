@@ -99,7 +99,9 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="flex items-center gap-2 mb-6 lg:mb-8">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <Link href="/">
             <LayoutGrid className="h-8 w-8" />
+          </Link>
           </div>
         </div>
 
